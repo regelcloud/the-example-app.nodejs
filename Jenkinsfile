@@ -52,6 +52,7 @@ def buildProject() {
   """+'''
   SHA=$(git rev-parse HEAD | cut -c1-5)
   export SHA
+  eval $(aws ecr get-login --region "$AWS_REGION" --no-include-email)
   tag="${AWS_ACCOUT_ID}.dkr.ecr.us-east-1.amazonaws.com/${ECR_REPO_NAME}:${SHA}"
   echo $tag
   docker build . -t $tag
